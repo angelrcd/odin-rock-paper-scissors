@@ -1,3 +1,5 @@
+game()
+
 function getComputerChoice(){
   const random = Math.floor(Math.random() * 3)
   const results = ['Rock', 'Paper', 'Scissors']
@@ -38,7 +40,12 @@ function game(){
   }
   
   for(let i = 0; i < 5; i++){
-    const userInput = prompt("Write your choice!")
+    let userInput;
+    let isInputValid;
+    while(!isInputValid){
+      userInput = prompt("Write your choice!")
+      isInputValid = isUserInputValid(userInput)
+    }
     const computerSelection = getComputerChoice()
     const roundResult = getRoundResult(userInput, computerSelection)
 
@@ -58,4 +65,8 @@ function game(){
 
 }
 
-game()
+function isUserInputValid(userInput){
+  userInput = userInput[0].toUpperCase() + userInput.slice(1).toLowerCase()
+  return (userInput === 'Rock' || userInput === 'Paper' || userInput === 'Scissors')
+
+}
