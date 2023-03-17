@@ -1,13 +1,24 @@
-game()
+const score = {
+  playerScore: 0,
+  cpuScore: 0,
+}
+
+const buttons = document.querySelectorAll(".player-choices-container button");
+
+buttons.forEach(button => {
+  button.addEventListener('click', (e)=> game(e.target.textContent));
+});
+
+
 
 function getComputerChoice(){
-  const random = Math.floor(Math.random() * 3)
-  const results = ['Rock', 'Paper', 'Scissors']
-  return results[random]
+  const random = Math.floor(Math.random() * 3);
+  const results = ['Rock', 'Paper', 'Scissors'];
+  return results[random];
 }
 
 function getRoundResult(playerSelection, computerSelection){
-  playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase()
+  playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase();
   
   if(playerSelection === computerSelection){
     return "Tie!"
@@ -17,7 +28,7 @@ function getRoundResult(playerSelection, computerSelection){
     Rock : '0',
     Paper: '1',
     Scissors: '2',
-  }
+  };
 
   const resultHash = {
     '01' : `You lose! ${computerSelection} beats ${playerSelection}`,
@@ -26,47 +37,62 @@ function getRoundResult(playerSelection, computerSelection){
     '10' : `You win! ${playerSelection} beats ${computerSelection}`,
     '20' : `You lose! ${computerSelection} beats ${playerSelection}`,
     '21' : `You win! ${playerSelection} beats ${computerSelection}`,
-  }
+  };
 
-  const game = choiceHash[playerSelection]+choiceHash[computerSelection]
-  return resultHash[game]
+  const game = choiceHash[playerSelection]+choiceHash[computerSelection];
+  return resultHash[game];
 }
 
-function game(){
-  console.log("BEST OF FIVE!")
-  const score = {
-    playerScore: 0,
-    cpuScore: 0,
-  }
+function game(userInput){
+  // console.log("BEST OF FIVE!")
+
   
-  for(let i = 0; i < 5; i++){
-    let userInput;
-    let isInputValid;
-    while(!isInputValid){
-      userInput = prompt("Write your choice!")
-      isInputValid = isUserInputValid(userInput)
-    }
-    const computerSelection = getComputerChoice()
-    const roundResult = getRoundResult(userInput, computerSelection)
+  const computerSelection = getComputerChoice();
+  const roundResult = getRoundResult(userInput, computerSelection);
 
-    if(roundResult.includes('win')){
-      score.playerScore++;
-    } else if(roundResult.includes('lose')){
-      score.cpuScore++;
-    }
-
-    console.log(roundResult)
-  }
-
-  console.log(`
-  Player Score: ${score.playerScore}
-  CPU Score: ${score.cpuScore}
-  `)
-
+  displayResult(roundResult);
+  setScore(roundResult);
+  displayScore()
+  displayFinalWinner()
 }
 
-function isUserInputValid(userInput){
-  userInput = userInput[0].toUpperCase() + userInput.slice(1).toLowerCase()
-  return (userInput === 'Rock' || userInput === 'Paper' || userInput === 'Scissors')
+function setScore(lastResult){
+  if(lastResult.includes('win')){
+    score.playerScore++;
+  } else if(lastResult.includes('lose')){
+    score.cpuScore++;
+  }
+}
 
+function displayScore(){
+  const playerScore = document.querySelector("#player-score");
+  const cpuScore = document.querySelector("#cpu-score");
+
+  playerScore.textContent = score.playerScore;
+  cpuScore.textContent = score.cpuScore;
+}
+
+
+function displayResult(result){
+  const resultElement = document.querySelector(".result");
+  resultElement.textContent = result
+}
+
+function getWinner(){
+  if(score.playerScore === 5){
+    return "Player"
+  } else if (score.cpuScore === 5){
+    return "CPU"
+  } else {
+    return false
+  }
+}
+
+function displayFinalWinner(){
+  const resultElement = document.querySelector(".result");
+  const winner = getWinner()
+  if(winner){
+    buttons.forEach(button => button.disabled = true)
+    resultElement.textContent = `${winner} won!`
+  }
 }

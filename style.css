@@ -1,0 +1,25 @@
+.scores-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.player-choices-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.scores-container div {
+  flex: 1 1 0;
+  text-align: center;
+}
+
+.result {
+  text-align: center;
+}
+
+.score-title {
+  text-align: center;
+}
