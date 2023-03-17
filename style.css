@@ -1,18 +1,53 @@
+body{
+  background-color: #ddd;
+}
+
 .scores-container{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 2em;
 }
 
 .player-choices-container{
+  margin-top: 5em;
+  margin-bottom: 1em;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
 }
 
+.player-choices-container button{
+  background-color: #eee;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 3em;
+  padding: 0.3em;
+}
+
+.player-choices-container button:hover{
+  background-color: #fff;
+  transform: scale(1.1);
+  box-shadow: 1px 1px 1px;
+}
+
+.player-choices-container button.game-over:hover{
+  background-color: #eee;
+  transform: scale(1);
+  box-shadow: none;
+}
+
+.player-choices-container button:active{
+  transform: scale(1);
+}
+
+.player-choices-container button:disabled{
+  filter: grayscale(60%);
+}
+
 .scores-container div {
-  flex: 1 1 0;
+  /* flex: 1 1 0; */
   text-align: center;
 }
 
@@ -22,4 +57,6 @@
 
 .score-title {
   text-align: center;
+  font-size: 2em;
+  margin: 1em 0 0 0;
 }

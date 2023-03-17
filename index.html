@@ -10,18 +10,19 @@
 </head>
 <body>
   <div class="player-choices-container">
-    <button id="rock-button">Rock</button>
-    <button id="paper-button">Paper</button>
-    <button id="scissors-button">Scissors</button>
+    <button data-choice="Rock" id="rock-button">✊</button>
+    <button data-choice="Paper" id="paper-button">✌️</button>
+    <button data-choice="Scissors" id="scissors-button">🖐️</button>
   </div>
 
-  <div class="result"></div>
+  <div class="result">Choose your weapon</div>
   <p class="score-title">SCORE</p>
   <div class="scores-container">
     <div>
       <p>Player</p>
       <p id="player-score"></p>
     </div>
+    <p>-</p>
     <div>
       <p>CPU</p>
       <p id="cpu-score"></p>

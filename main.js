@@ -6,7 +6,7 @@ const score = {
 const buttons = document.querySelectorAll(".player-choices-container button");
 
 buttons.forEach(button => {
-  button.addEventListener('click', (e)=> game(e.target.textContent));
+  button.addEventListener('click', (e)=> game(e.target.getAttribute("data-choice")));
 });
 
 
@@ -92,7 +92,10 @@ function displayFinalWinner(){
   const resultElement = document.querySelector(".result");
   const winner = getWinner()
   if(winner){
-    buttons.forEach(button => button.disabled = true)
+    buttons.forEach(button => {
+      button.disabled = true;
+      button.classList.add("game-over")
+    })
     resultElement.textContent = `${winner} won!`
   }
 }
